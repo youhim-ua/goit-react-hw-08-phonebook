@@ -1,0 +1,43 @@
+.contactList {
+  margin-top: 10px;
+  list-style: none;
+}
+
+.listItem {
+  display: flex;
+  margin-top: 8px;
+  align-items: center;
+  font-size: 1.1rem;
+}
+
+.listItem::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 5px;
+  background-color: rgba(14, 165, 235, 0.822);
+}
+
+.number {
+  margin-left: 8px;
+}
+
+.deleteButton {
+  display: block;
+  width: 60px;
+  height: 25px;
+  margin-left: 15px;
+  cursor: pointer;
+  border: none;
+  border-radius: 15px;
+  transition: all 400ms linear;
+  color: #fff;
+  background-color: rgba(51, 53, 54, 0.719);
+}
+
+.deleteButton:hover,
+.deleteButton:focus {
+  background-color: rgb(255, 34, 34);
+  transition: all 400ms linear;
+}

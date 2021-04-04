@@ -1,0 +1,38 @@
+.contactsForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.input {
+  width: 300px;
+  height: 30px;
+  padding: 3px;
+  border: 2px solid black;
+  font-size: 1.1rem;
+}
+
+.addButton {
+  display: block;
+  width: 110px;
+  height: 30px;
+  margin-top: 10px;
+  padding: 3px;
+  font-size: 1.1rem;
+  cursor: pointer;
+  border: none;
+  border-radius: 15px;
+  transition: all 400ms linear;
+  color: #fff;
+  background-color: rgba(51, 53, 54, 0.719);
+}
+
+.addButton:hover,
+.addButton:focus {
+  background-color: rgb(62, 176, 241);
+  transition: all 400ms linear;
+}
