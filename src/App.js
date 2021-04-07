@@ -12,13 +12,15 @@ class App extends Component {
 
   componentDidMount() {
     const storedContacts = JSON.parse(localStorage.getItem('contacts'));
-    this.setState({contacts: storedContacts});
+    if (storedContacts) {
+      this.setState({ contacts: storedContacts });
+    }
   }
 
   componentDidUpdate(prevProps, prevState) {
     const { contacts } = this.state;
-    if(contacts.length > prevState.contacts.length) {
-      localStorage.setItem('contacts', JSON.stringify(contacts))
+    if (contacts !== prevState.contacts) {
+      localStorage.setItem('contacts', JSON.stringify(contacts));
     }
   }
 
