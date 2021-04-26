@@ -1,66 +1,18 @@
-import { Component } from 'react';
 import Container from './components/Container';
 import ContactForm from './components/ContactForm';
 import ContactList from './components/ContactList';
 import Filter from './components/Filter';
 
-class App extends Component {
-  state = {
-    contacts: [],
-    filter: '',
-  };
-
-  componentDidMount() {
-    const storedContacts = JSON.parse(localStorage.getItem('contacts'));
-    if (storedContacts) {
-      this.setState({ contacts: storedContacts });
-    }
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    const { contacts } = this.state;
-    if (contacts !== prevState.contacts) {
-      localStorage.setItem('contacts', JSON.stringify(contacts));
-    }
-  }
-
-  addContact = user => {
-    this.setState(prevState => ({ contacts: [user, ...prevState.contacts] }));
-  };
-
-  deleteContact = id =>
-    this.setState(prevState => ({
-      contacts: prevState.contacts.filter(contact => contact.id !== id),
-    }));
-
-  updateFilter = text => this.setState({ filter: text });
-
-  filteredContacts = () => {
-    const { contacts, filter } = this.state;
-    const formattedFilter = filter.toLowerCase();
-
-    return contacts.filter(({ name }) =>
-      name.toLowerCase().includes(formattedFilter),
-    );
-  };
-
-  render() {
-    const visibleContacts = this.filteredContacts();
-    const { contacts, filter } = this.state;
-
-    return (
-      <Container>
-        <h1>Phonebook</h1>
-        <ContactForm contacts={contacts} onSubmit={this.addContact} />
-        <h2>Contacts</h2>
-        <Filter filter={filter} onSearch={this.updateFilter} />
-        <ContactList
-          contacts={visibleContacts}
-          onDeleteContact={this.deleteContact}
-        />
-      </Container>
-    );
-  }
+function App() {
+  return (
+    <Container>
+      <h1>Phonebook</h1>
+      <ContactForm />
+      <h2>Contacts</h2>
+      <Filter />
+      <ContactList />
+    </Container>
+  );
 }
 
 export default App;

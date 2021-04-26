@@ -1,5 +1,7 @@
 import { Component } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { connect } from 'react-redux';
+import { addContact } from '../../redux/phonebook/phonebook-actions';
 import styles from './ContactForm.module.scss';
 
 class ContactForm extends Component {
@@ -14,19 +16,19 @@ class ContactForm extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-    const { name, number } = this.state;
-    const user = { id: uuidv4(), name, number };
-    this.props.onSubmit(user);
-    this.setState({ name: '', number: '' });
+    const { name } = this.state;
+    const { contacts } = this.props;
+    if (contacts.some(elem => elem.name === name)) {
+      alert(`${name} is already in contacts`);
+      this.reset();
+      return;
+    }
+    this.props.contactSubmit(this.state);
+    this.reset();
   };
 
-  alertExistUser = () => {
-    const { contacts } = this.props;
-    const result = contacts.some(
-      contact => contact.name.toLowerCase() === this.state.name.toLowerCase(),
-    );
-    if (result) alert(`${this.state.name} already exist!`);
-    return result;
+  reset = () => {
+    this.setState({ name: '', number: '' });
   };
 
   render() {
@@ -62,11 +64,7 @@ class ContactForm extends Component {
             onChange={this.handleSaveName}
           />
         </label>
-        <button
-          className={styles.addButton}
-          type="submit"
-          disabled={this.alertExistUser()}
-        >
+        <button className={styles.addButton} type="submit">
           Add contact
         </button>
       </form>
@@ -74,4 +72,19 @@ class ContactForm extends Component {
   }
 }
 
-export default ContactForm;
+const mapStateToProps = state => ({
+  contacts: state.contacts,
+});
+
+const mapDispatchToProps = dispatch => ({
+  contactSubmit: ({ name, number }) =>
+    dispatch(
+      addContact({
+        id: uuidv4(),
+        name,
+        number,
+      }),
+    ),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContactForm);
