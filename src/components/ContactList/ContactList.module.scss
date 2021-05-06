@@ -31,7 +31,7 @@
   cursor: pointer;
   border: none;
   border-radius: 15px;
-  transition: all 400ms linear;
+  transition: all 300ms linear;
   color: #fff;
   background-color: rgba(51, 53, 54, 0.719);
 }
@@ -39,5 +39,73 @@
 .deleteButton:hover,
 .deleteButton:focus {
   background-color: rgb(255, 34, 34);
-  transition: all 400ms linear;
+  transition: all 300ms linear;
+}
+
+/*spiner*/
+.lds_ellipsis {
+  display: block;
+  position: relative;
+  width: 80px;
+  height: 16px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+.lds_ellipsis div {
+  position: absolute;
+  // top: 33px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: rgb(97, 96, 96);
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+.lds_ellipsis div:nth-child(1) {
+  left: 8px;
+  animation: lds_ellipsis1 0.6s infinite;
+}
+.lds_ellipsis div:nth-child(2) {
+  left: 8px;
+  animation: lds_ellipsis2 0.6s infinite;
+}
+.lds_ellipsis div:nth-child(3) {
+  left: 32px;
+  animation: lds_ellipsis2 0.6s infinite;
+}
+.lds_ellipsis div:nth-child(4) {
+  left: 56px;
+  animation: lds_ellipsis3 0.6s infinite;
+}
+@keyframes lds_ellipsis1 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes lds_ellipsis3 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+@keyframes lds_ellipsis2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(24px, 0);
+  }
+}
+
+// error message
+.error_message {
+  font-weight: bold;
+  text-align: center;
+  margin-top: 15px;
 }

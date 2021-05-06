@@ -1,7 +1,8 @@
 import { Component } from 'react';
-import { v4 as uuidv4 } from 'uuid';
 import { connect } from 'react-redux';
-import { addContact } from '../../redux/phonebook/phonebook-actions';
+import PropTypes from 'prop-types';
+import contactsOperations from '../../redux/phonebook/phonebook-operations';
+import selectors from '../../redux/phonebook/phonebook-selectors';
 import styles from './ContactForm.module.scss';
 
 class ContactForm extends Component {
@@ -72,15 +73,24 @@ class ContactForm extends Component {
   }
 }
 
+ContactForm.propTypes = {
+  contacts: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      number: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
+    }),
+  ).isRequired,
+};
+
 const mapStateToProps = state => ({
-  contacts: state.contacts,
+  contacts: selectors.getAllContacts(state),
 });
 
 const mapDispatchToProps = dispatch => ({
   contactSubmit: ({ name, number }) =>
     dispatch(
-      addContact({
-        id: uuidv4(),
+      contactsOperations.addContact({
         name,
         number,
       }),

@@ -1,6 +1,19 @@
 import { createReducer } from '@reduxjs/toolkit';
 // import actionTypes from './phonebook-types';
-import * as actions from './phonebook-actions';
+import actions from './phonebook-actions';
+
+const {
+  fetchContactRequest,
+  fetchContactSuccess,
+  fetchContactError,
+  addContactRequest,
+  addContactSuccess,
+  addContactError,
+  deleteContactRequest,
+  deleteContactSuccess,
+  deleteContactError,
+  filterContact,
+} = actions;
 
 // const contacts = (state = [], {type, payload}) => {
 //     switch (type) {
@@ -27,13 +40,35 @@ import * as actions from './phonebook-actions';
 // }
 
 const contacts = createReducer([], {
-  [actions.addContact]: (state, { payload }) => [...state, payload],
-  [actions.deleteContact]: (state, { payload }) =>
+  [fetchContactSuccess]: (_, { payload }) => payload,
+  [addContactSuccess]: (state, { payload }) => [...state, payload],
+  [deleteContactSuccess]: (state, { payload }) =>
     state.filter(contact => contact.id !== payload),
 });
 
 const filter = createReducer('', {
-  [actions.filterContact]: (_, { payload }) => payload,
+  [filterContact]: (_, { payload }) => payload,
 });
 
-export { contacts, filter };
+const loading = createReducer(false, {
+  [fetchContactRequest]: () => true,
+  [fetchContactSuccess]: () => false,
+  [fetchContactError]: () => false,
+  [addContactRequest]: () => true,
+  [addContactSuccess]: () => false,
+  [addContactError]: () => false,
+  [deleteContactRequest]: () => true,
+  [deleteContactSuccess]: () => false,
+  [deleteContactError]: () => false,
+});
+
+const error = createReducer(false, {
+  [fetchContactError]: () => true,
+  [fetchContactSuccess]: () => false,
+  [addContactError]: () => true,
+  [addContactSuccess]: () => false,
+  [deleteContactError]: () => true,
+  [deleteContactSuccess]: () => false,
+});
+
+export { contacts, filter, loading, error };

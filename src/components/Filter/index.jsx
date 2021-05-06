@@ -1,5 +1,7 @@
 import { connect } from 'react-redux';
-import { filterContact } from '../../redux/phonebook/phonebook-actions';
+import PropTypes from 'prop-types';
+import actions from '../../redux/phonebook/phonebook-actions';
+import selectors from '../../redux/phonebook/phonebook-selectors';
 import styles from './Filter.module.scss';
 
 function Filter({ filter, filterContact }) {
@@ -13,17 +15,24 @@ function Filter({ filter, filterContact }) {
         name="filter"
         value={filter}
         onChange={filterContact}
+        autoComplete="off"
       />
     </label>
   );
 }
 
+Filter.propTypes = {
+  filter: PropTypes.string.isRequired,
+  filterContact: PropTypes.func.isRequired,
+};
+
 const mapStateToProps = state => ({
-  filter: state.filter,
+  filter: selectors.getFilter(state),
 });
 
 const mapDispatchToProps = dispatch => ({
-  filterContact: ({ target: { value } }) => dispatch(filterContact(value)),
+  filterContact: ({ target: { value } }) =>
+    dispatch(actions.filterContact(value)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Filter);

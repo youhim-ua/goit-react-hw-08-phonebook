@@ -16,8 +16,34 @@ import { createAction } from '@reduxjs/toolkit';
 //     payload: name
 // });
 
-const addContact = createAction('phonebook/add');
-const deleteContact = createAction('phonebook/delete');
+const fetchContactRequest = createAction('phonebook/fetchContactRequest');
+const fetchContactSuccess = createAction('phonebook/fetchContactSuccess');
+const fetchContactError = createAction('phonebook/fetchContactError');
+
+// const addContact = createAction('phonebook/add');
+
+const addContactRequest = createAction('phonebook/addContactRequest');
+const addContactSuccess = createAction('phonebook/addContactSuccess');
+const addContactError = createAction('phonebook/addContactError');
+
+// const deleteContact = createAction('phonebook/delete');
+
+const deleteContactRequest = createAction('phonebook/deleteContactRequest');
+const deleteContactSuccess = createAction('phonebook/deleteContactSuccess');
+const deleteContactError = createAction('phonebook/deleteContactError');
+
 const filterContact = createAction('phonebook/filter');
 
-export { addContact, deleteContact, filterContact };
+// eslint-disable-next-line
+export default {
+  fetchContactRequest,
+  fetchContactSuccess,
+  fetchContactError,
+  addContactRequest,
+  addContactSuccess,
+  addContactError,
+  deleteContactRequest,
+  deleteContactSuccess,
+  deleteContactError,
+  filterContact,
+};

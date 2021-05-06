@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import PropTypes from 'prop-types';
 import styles from './Container.module.scss';
 
 class Container extends Component {
@@ -8,5 +9,9 @@ class Container extends Component {
     return <section className={styles.container}>{children}</section>;
   }
 }
+
+Container.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 export default Container;
