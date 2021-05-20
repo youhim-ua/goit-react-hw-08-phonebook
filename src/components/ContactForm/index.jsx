@@ -1,9 +1,11 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
+import { Button } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import contactsOperations from '../../redux/phonebook/phonebook-operations';
 import selectors from '../../redux/phonebook/phonebook-selectors';
 import styles from './ContactForm.module.scss';
+import notes from '../../utilities/pnotyfy.js';
 
 class ContactForm extends Component {
   state = {
@@ -20,7 +22,7 @@ class ContactForm extends Component {
     const { name } = this.state;
     const { contacts } = this.props;
     if (contacts.some(elem => elem.name === name)) {
-      alert(`${name} is already in contacts`);
+      notes.noteErrorInRange(name);
       this.reset();
       return;
     }
@@ -65,9 +67,9 @@ class ContactForm extends Component {
             onChange={this.handleSaveName}
           />
         </label>
-        <button className={styles.addButton} type="submit">
+        <Button variant="primary" className={styles.addButton} type="submit">
           Add contact
-        </button>
+        </Button>
       </form>
     );
   }
@@ -78,7 +80,7 @@ ContactForm.propTypes = {
     PropTypes.shape({
       name: PropTypes.string.isRequired,
       number: PropTypes.string.isRequired,
-      id: PropTypes.number.isRequired,
+      id: PropTypes.string.isRequired,
     }),
   ).isRequired,
 };

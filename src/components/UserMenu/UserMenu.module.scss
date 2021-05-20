@@ -1,0 +1,24 @@
+.userBox {
+  display: flex;
+  align-items: center;
+}
+
+.userBox > p {
+  margin: 0;
+}
+
+.userBox > button {
+  display: block;
+  width: 70px;
+  height: 30px;
+  margin-left: 15px;
+  padding: 0;
+  border: none;
+  transition: all 300ms ease-out;
+}
+
+.userBox > button:hover,
+.userBox > button:focus {
+  background-color: rgba(255, 19, 19, 0.808);
+  transition: all 300ms ease-out;
+}

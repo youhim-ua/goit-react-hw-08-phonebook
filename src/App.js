@@ -1,35 +1,69 @@
+import { Component, lazy, Suspense } from 'react';
 import { connect } from 'react-redux';
-import selectors from './redux/phonebook/phonebook-selectors';
-import PropTypes from 'prop-types';
-import Container from './components/Container';
-import ContactForm from './components/ContactForm';
-import ContactList from './components/ContactList';
-import Filter from './components/Filter';
+import { Switch } from 'react-router-dom';
+import authOperations from './redux/auth/auth-operations';
+import PrivateRoute from './components/PrivateRoute';
+import PublicRoute from './components/PublicRoute';
+import Wrapper from './components/Wrapper';
+import Header from './components/Header/Header';
+import Navigation from './components/Navigation/Navigation';
+import Spinner from './components/Spinner';
 
-function App({ contacts }) {
-  return (
-    <Container>
-      <h1>Phonebook</h1>
-      <ContactForm />
-      {contacts.length !== 0 && <h2>Contacts</h2>}
-      {contacts.length !== 0 && <Filter />}
-      <ContactList />
-    </Container>
-  );
+const Home = lazy(() =>
+  import('./views/Home/Home' /* webpackChunkName: "Home-page" */),
+);
+const Contacts = lazy(() =>
+  import('./views/Contacts/Contacts' /* webpackChunkName: "Contacts-page" */),
+);
+const Register = lazy(() =>
+  import('./views/Register/Register' /* webpackChunkName: "Register-page" */),
+);
+const Login = lazy(() =>
+  import('./views/Login/Login' /* webpackChunkName: "Login-page" */),
+);
+
+class App extends Component {
+  componentDidMount() {
+    this.props.getCurrentUser();
+  }
+
+  render() {
+    return (
+      <>
+        <Header>
+          <Wrapper>
+            <Navigation />
+          </Wrapper>
+        </Header>
+        <Switch>
+          <Suspense fallback={<Spinner />}>
+            <PublicRoute path="/" exact component={Home} />
+            <PrivateRoute
+              path="/contacts"
+              redirectTo="/login"
+              component={Contacts}
+            />
+            <PublicRoute
+              path="/register"
+              restricted
+              redirectTo="/contacts"
+              component={Register}
+            />
+            <PublicRoute
+              path="/login"
+              restricted
+              redirectTo="/contacts"
+              component={Login}
+            />
+          </Suspense>
+        </Switch>
+      </>
+    );
+  }
 }
 
-App.propTypes = {
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
-      id: PropTypes.number.isRequired,
-    }),
-  ),
+const mapDispatchToProps = {
+  getCurrentUser: authOperations.getCurrentUser,
 };
 
-const mapStateToProps = state => ({
-  contacts: selectors.getAllContacts(state),
-});
-
-export default connect(mapStateToProps, null)(App);
+export default connect(null, mapDispatchToProps)(App);

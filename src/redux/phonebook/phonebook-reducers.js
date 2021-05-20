@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-// import actionTypes from './phonebook-types';
+import { combineReducers } from '@reduxjs/toolkit';
 import actions from './phonebook-actions';
 
 const {
@@ -71,4 +71,4 @@ const error = createReducer(false, {
   [deleteContactSuccess]: () => false,
 });
 
-export { contacts, filter, loading, error };
+export default combineReducers({ contacts, filter, loading, error });

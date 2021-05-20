@@ -1,12 +1,12 @@
 import { createSelector } from 'reselect';
 
-const getAllContacts = state => state.contacts;
+const getAllContacts = state => state.abonents.contacts;
 
-const getFilter = state => state.filter;
+const getFilter = state => state.abonents.filter;
 
-const getLoading = state => state.loading;
+const getLoading = state => state.abonents.loading;
 
-const getError = state => state.error;
+const getError = state => state.abonents.error;
 
 const getVisibleContacts = createSelector(
   [getAllContacts, getFilter],

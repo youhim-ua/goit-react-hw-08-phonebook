@@ -129,3 +129,5 @@ yarn-error.log*
 .huskyrc
 .lintstagedrc
 .prettierrc
+.netlify
+netlify.toml

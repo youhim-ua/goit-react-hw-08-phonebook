@@ -1,3 +1,8 @@
+@import '~bootstrap/scss/bootstrap';
+@import 'modern-normalize/modern-normalize.css';
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Oxygen:wght@400;700&display=swap');
+
 *,
 *::before,
 *::after {
@@ -7,13 +12,13 @@
 }
 
 body {
-  margin: 0;
-  padding: 15px;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Oxygen', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+button {
+  font-family: 'Oxygen', sans-serif;
 }
 
 h2 {
@@ -23,4 +28,27 @@ h2 {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+[data-pnotify].noteSuccess-elem,
+[data-pnotify].noteErrorInRange-elem,
+[data-pnotify].noteDeleteSuccess-elem {
+  color: #fff;
+  border-radius: 0.25rem;
+}
+
+[data-pnotify].noteSuccess-elem {
+  background-color: #007bff;
+}
+
+[data-pnotify].noteErrorInRange-elem {
+  background-color: rgba(255, 19, 19, 0.808);
+}
+
+[data-pnotify].noteDeleteSuccess-elem {
+  background-color: rgba(238, 156, 25, 0.863);
+}
+
+[data-pnotify].pnotify.pnotify-with-icon .custom-content {
+  margin-left: 0;
 }

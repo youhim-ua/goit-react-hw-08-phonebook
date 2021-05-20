@@ -1,7 +1,6 @@
 import axios from 'axios';
 import actions from './phonebook-actions';
-
-axios.defaults.baseURL = 'http://localhost:4041';
+import notes from '../../utilities/pnotyfy.js';
 
 const fetchContact = () => dispatch => {
   dispatch(actions.fetchContactRequest());
@@ -19,8 +18,14 @@ const addContact = ({ name, number }) => dispatch => {
 
   axios
     .post('/contacts', contact)
-    .then(({ data }) => dispatch(actions.addContactSuccess(data)))
-    .catch(error => dispatch(actions.addContactError(error)));
+    .then(({ data }) => {
+      dispatch(actions.addContactSuccess(data));
+      notes.noteSuccess();
+    })
+    .catch(error => {
+      dispatch(actions.addContactError(error));
+      notes.noteErrorCreate();
+    });
 };
 
 const deleteContact = id => dispatch => {
@@ -28,8 +33,14 @@ const deleteContact = id => dispatch => {
 
   axios
     .delete(`/contacts/${id}`)
-    .then(() => dispatch(actions.deleteContactSuccess(id)))
-    .catch(error => dispatch(actions.deleteContactError(error)));
+    .then(() => {
+      dispatch(actions.deleteContactSuccess(id));
+      notes.noteDeleteSuccess();
+    })
+    .catch(error => {
+      dispatch(actions.deleteContactError(error));
+      notes.noteErrorCreate();
+    });
 };
 // eslint-disable-next-line
 export default { fetchContact, addContact, deleteContact };
