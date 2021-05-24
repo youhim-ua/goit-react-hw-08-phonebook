@@ -1,70 +1,60 @@
-import { Component } from 'react';
-import { connect } from 'react-redux';
+import { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { Button } from 'react-bootstrap';
-import PropTypes from 'prop-types';
 import selectors from '../../redux/phonebook/phonebook-selectors';
-import contactsOperations from '../../redux/phonebook/phonebook-operations';
+import phonebookOperations from '../../redux/phonebook/phonebook-operations';
 import styles from './ContactList.module.scss';
 import Spinner from '../Spinner';
 
-class ContactList extends Component {
-  componentDidMount() {
-    this.props.fetchContacts();
-  }
+const ContactList = () => {
+  const contacts = useSelector(selectors.getVisibleContacts);
+  const loading = useSelector(selectors.getLoading);
+  const error = useSelector(selectors.getError);
 
-  render() {
-    const { contacts, loading, onDeleteContact, error } = this.props;
+  const dispatch = useDispatch();
 
-    return (
-      <>
-        {loading && <Spinner />}
+  useEffect(() => {
+    dispatch(phonebookOperations.fetchContact());
+  }, [dispatch]);
+
+  const contactsToABC = contacts.sort((a, b) => {
+    const nameA = a.name.toLowerCase();
+    const nameB = b.name.toLowerCase();
+    if (nameA < nameB) return -1;
+    if (nameA > nameB) return 1;
+    return 0;
+  });
+
+  return (
+    <>
+      <div className={styles.spinnerBox}>{loading && <Spinner />}</div>
+      {contacts.length !== 0 && (
         <ul className={styles.contactList}>
-          {contacts.map(({ id, name, number }) => (
+          {contactsToABC.map(({ id, name, number }) => (
             <li className={styles.listItem} key={id}>
-              <span>{name}</span>:
-              <span className={styles.number}>{number}</span>
+              <div>
+                <span className={styles.listItemName}>{name}</span>
+                <span className={styles.listItemNumber}>{number}</span>
+              </div>
               <Button
                 variant="secondary"
-                className={styles.deleteButton}
-                onClick={() => onDeleteContact(id)}
+                className={styles.listItemDeleteButton}
+                onClick={() => dispatch(phonebookOperations.deleteContact(id))}
               >
                 delete
               </Button>
             </li>
           ))}
         </ul>
-        {error && (
-          <p className={styles.error_message}>
-            Server do not response! <br />
-            Please, reload page or try later.
-          </p>
-        )}
-      </>
-    );
-  }
-}
-
-ContactList.propTypes = {
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
-      id: PropTypes.string.isRequired,
-    }),
-  ).isRequired,
-  loading: PropTypes.bool.isRequired,
-  error: PropTypes.bool.isRequired,
+      )}
+      {error && (
+        <p className={styles.error_message}>
+          Server do not response! <br />
+          Please, reload page or try later.
+        </p>
+      )}
+    </>
+  );
 };
 
-const mapStateToProps = state => ({
-  contacts: selectors.getVisibleContacts(state),
-  loading: selectors.getLoading(state),
-  error: selectors.getError(state),
-});
-
-const mapDispatchToProps = dispatch => ({
-  fetchContacts: () => dispatch(contactsOperations.fetchContact()),
-  onDeleteContact: id => dispatch(contactsOperations.deleteContact(id)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ContactList);
+export default ContactList;

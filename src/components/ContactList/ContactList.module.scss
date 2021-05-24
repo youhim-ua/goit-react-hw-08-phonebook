@@ -1,40 +1,73 @@
+.spinnerBox {
+  height: 16px;
+  padding: 5px 0;
+}
+
 .contactList {
-  margin-top: 10px;
+  max-height: 378px;
+  margin: 0;
+  // padding-right: 5px;
   list-style: none;
+  overflow-x: auto;
 }
 
 .listItem {
   display: flex;
-  margin-top: 8px;
+  justify-content: space-between;
   align-items: center;
+  border-bottom: 2px dotted #007bff;
   font-size: 1.1rem;
 }
 
-.listItem::before {
+.listItem > div {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+}
+
+.listItem > div > span {
+  padding-left: 15px;
+}
+
+.listItemName {
+  overflow: hidden;
+}
+
+.listItemName:hover {
+  overflow: auto;
+}
+
+.listItem > div::before {
+  position: absolute;
+  top: 40%;
+  display: block;
   content: '';
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  margin-right: 5px;
   background-color: #007bff;
 }
 
-.number {
-  margin-left: 8px;
+.listItemName {
+  font-weight: bold;
 }
 
-.deleteButton {
+// .listItemNumber {
+//   margin-left: 5px;
+// }
+
+.listItemDeleteButton {
   display: block;
   width: 60px;
   height: 25px;
-  margin-left: 15px;
   padding: 0;
   border: none;
   transition: all 400ms ease;
 }
 
-.deleteButton:hover,
-.deleteButton:focus {
+.listItemDeleteButton:hover,
+.listItemDeleteButton:focus {
   background-color: rgba(255, 19, 19, 0.808);
   transition: all 400ms ease;
 }

@@ -1,7 +1,12 @@
-import styless from './Wrapper.module.scss';
+import PropTypes from 'prop-types';
+import styles from './Wrapper.module.scss';
 
-const Wrapper = ({ children }) => {
-  return <div className={styless.wrapper}>{children}</div>;
+const Wrapper = ({ children }) => (
+  <div className={styles.wrapper}>{children}</div>
+);
+
+Wrapper.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 export default Wrapper;

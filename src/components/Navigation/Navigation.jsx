@@ -1,4 +1,4 @@
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Navbar, Nav } from 'react-bootstrap';
 import { NavLink, Link } from 'react-router-dom';
 import authSelectors from '../../redux/auth/auth-selectors';
@@ -6,7 +6,9 @@ import UserMenu from '../UserMenu';
 import styles from './Navigation.module.scss';
 import logo from '../../image/phone-book.png';
 
-const Navigation = ({ isAuthorized }) => {
+const Navigation = () => {
+  const isAuthorized = useSelector(authSelectors.getIsAuthorized);
+
   return (
     <>
       <Navbar expand="lg" className={styles.navbar}>
@@ -61,8 +63,4 @@ const Navigation = ({ isAuthorized }) => {
   );
 };
 
-const mapStateToProps = state => ({
-  isAuthorized: authSelectors.getIsAuthorized(state),
-});
-
-export default connect(mapStateToProps)(Navigation);
+export default Navigation;

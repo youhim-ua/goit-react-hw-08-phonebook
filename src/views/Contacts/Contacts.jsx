@@ -1,12 +1,13 @@
-import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import selectors from '../../redux/phonebook/phonebook-selectors';
+import { useSelector } from 'react-redux';
+import phonebookSelectors from '../../redux/phonebook/phonebook-selectors';
 import Container from '../../components/Container';
 import ContactForm from '../../components/ContactForm';
 import ContactList from '../../components/ContactList';
 import Filter from '../../components/Filter';
 
-const Contacts = ({ contacts }) => {
+const Contacts = () => {
+  const contacts = useSelector(phonebookSelectors.getAllContacts);
+
   return (
     <Container>
       <div>
@@ -20,18 +21,4 @@ const Contacts = ({ contacts }) => {
   );
 };
 
-Contacts.propTypes = {
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
-      id: PropTypes.string.isRequired,
-    }),
-  ),
-};
-
-const mapStateToProps = state => ({
-  contacts: selectors.getAllContacts(state),
-});
-
-export default connect(mapStateToProps)(Contacts);
+export default Contacts;

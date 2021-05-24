@@ -37,24 +37,18 @@ class App extends Component {
         </Header>
         <Switch>
           <Suspense fallback={<Spinner />}>
-            <PublicRoute path="/" exact component={Home} />
-            <PrivateRoute
-              path="/contacts"
-              redirectTo="/login"
-              component={Contacts}
-            />
-            <PublicRoute
-              path="/register"
-              restricted
-              redirectTo="/contacts"
-              component={Register}
-            />
-            <PublicRoute
-              path="/login"
-              restricted
-              redirectTo="/contacts"
-              component={Login}
-            />
+            <PublicRoute path="/" exact>
+              <Home />
+            </PublicRoute>
+            <PrivateRoute path="/contacts" redirectTo="/login">
+              <Contacts />
+            </PrivateRoute>
+            <PublicRoute path="/register" restricted redirectTo="/contacts">
+              <Register />
+            </PublicRoute>
+            <PublicRoute path="/login" restricted redirectTo="/contacts">
+              <Login />
+            </PublicRoute>
           </Suspense>
         </Switch>
       </>

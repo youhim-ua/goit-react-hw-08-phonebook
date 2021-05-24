@@ -15,30 +15,6 @@ const {
   filterContact,
 } = actions;
 
-// const contacts = (state = [], {type, payload}) => {
-//     switch (type) {
-//         case actionTypes.ADD:
-//             return [...state, payload]
-
-//         case actionTypes.DELETE:
-//             return state.filter(contact => contact.id !== payload)
-
-//         default:
-//             return state;
-//     }
-// }
-
-// const filter = (state = '', {type, payload}) => {
-//     switch (type) {
-//         case actionTypes.FILTER:
-//             return payload;
-
-//         default:
-//             return state;
-//     }
-
-// }
-
 const contacts = createReducer([], {
   [fetchContactSuccess]: (_, { payload }) => payload,
   [addContactSuccess]: (state, { payload }) => [...state, payload],

@@ -31,17 +31,16 @@
 
 .navbarLink {
   color: #000;
+  line-height: normal;
   transition: color 400ms ease;
 }
 
 .navbarLink:hover,
 .navbarLink:focus {
-  // color: #007bff;
   transition: color 400ms ease;
 }
 
 .navbarLinkActive {
-  // color: #007bff;
   border-bottom: #007bff 2px solid;
 }
 
