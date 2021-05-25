@@ -1,5 +1,5 @@
-import { Component, lazy, Suspense } from 'react';
-import { connect } from 'react-redux';
+import { lazy, Suspense, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { Switch } from 'react-router-dom';
 import authOperations from './redux/auth/auth-operations';
 import PrivateRoute from './components/PrivateRoute';
@@ -22,42 +22,38 @@ const Login = lazy(() =>
   import('./views/Login/Login' /* webpackChunkName: "Login-page" */),
 );
 
-class App extends Component {
-  componentDidMount() {
-    this.props.getCurrentUser();
-  }
+const App = () => {
+  const dispatch = useDispatch();
 
-  render() {
-    return (
-      <>
-        <Header>
-          <Wrapper>
-            <Navigation />
-          </Wrapper>
-        </Header>
-        <Switch>
-          <Suspense fallback={<Spinner />}>
-            <PublicRoute path="/" exact>
-              <Home />
-            </PublicRoute>
-            <PrivateRoute path="/contacts" redirectTo="/login">
-              <Contacts />
-            </PrivateRoute>
-            <PublicRoute path="/register" restricted redirectTo="/contacts">
-              <Register />
-            </PublicRoute>
-            <PublicRoute path="/login" restricted redirectTo="/contacts">
-              <Login />
-            </PublicRoute>
-          </Suspense>
-        </Switch>
-      </>
-    );
-  }
-}
+  useEffect(() => {
+    dispatch(authOperations.getCurrentUser());
+  }, [dispatch]);
 
-const mapDispatchToProps = {
-  getCurrentUser: authOperations.getCurrentUser,
+  return (
+    <>
+      <Header>
+        <Wrapper>
+          <Navigation />
+        </Wrapper>
+      </Header>
+      <Switch>
+        <Suspense fallback={<Spinner />}>
+          <PublicRoute path="/" exact>
+            <Home />
+          </PublicRoute>
+          <PrivateRoute path="/contacts" redirectTo="/login">
+            <Contacts />
+          </PrivateRoute>
+          <PublicRoute path="/register" restricted redirectTo="/contacts">
+            <Register />
+          </PublicRoute>
+          <PublicRoute path="/login" restricted redirectTo="/contacts">
+            <Login />
+          </PublicRoute>
+        </Suspense>
+      </Switch>
+    </>
+  );
 };
 
-export default connect(null, mapDispatchToProps)(App);
+export default App;
