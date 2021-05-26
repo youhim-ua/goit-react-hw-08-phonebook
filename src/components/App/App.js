@@ -1,36 +1,44 @@
 import { lazy, Suspense, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Switch } from 'react-router-dom';
-import authOperations from './redux/auth/auth-operations';
-import PrivateRoute from './components/PrivateRoute';
-import PublicRoute from './components/PublicRoute';
-import Wrapper from './components/Wrapper';
-import Header from './components/Header/Header';
-import Navigation from './components/Navigation/Navigation';
-import Spinner from './components/Spinner';
+import authOperations from '../../redux/auth/auth-operations';
+import themeSelector from '../../redux/theme/theme-selectors';
+import PrivateRoute from '../../components/PrivateRoute';
+import PublicRoute from '../../components/PublicRoute';
+import Wrapper from '../../components/Wrapper';
+import Header from '../../components/Header/Header';
+import Navigation from '../../components/Navigation/Navigation';
+import Spinner from '../../components/Spinner';
+import styles from './App.module.scss';
 
 const Home = lazy(() =>
-  import('./views/Home/Home' /* webpackChunkName: "Home-page" */),
+  import('../../views/Home/Home' /* webpackChunkName: "Home-page" */),
 );
 const Contacts = lazy(() =>
-  import('./views/Contacts/Contacts' /* webpackChunkName: "Contacts-page" */),
+  import(
+    '../../views/Contacts/Contacts' /* webpackChunkName: "Contacts-page" */
+  ),
 );
 const Register = lazy(() =>
-  import('./views/Register/Register' /* webpackChunkName: "Register-page" */),
+  import(
+    '../../views/Register/Register' /* webpackChunkName: "Register-page" */
+  ),
 );
 const Login = lazy(() =>
-  import('./views/Login/Login' /* webpackChunkName: "Login-page" */),
+  import('../../views/Login/Login' /* webpackChunkName: "Login-page" */),
 );
 
 const App = () => {
   const dispatch = useDispatch();
+
+  const theme = useSelector(themeSelector);
 
   useEffect(() => {
     dispatch(authOperations.getCurrentUser());
   }, [dispatch]);
 
   return (
-    <>
+    <div className={theme ? styles.bodyDark : styles.bodyLight}>
       <Header>
         <Wrapper>
           <Navigation />
@@ -52,7 +60,7 @@ const App = () => {
           </PublicRoute>
         </Suspense>
       </Switch>
-    </>
+    </div>
   );
 };
 

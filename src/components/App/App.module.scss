@@ -1,0 +1,25 @@
+.bodyLight {
+  min-height: 100vh;
+  background-size: cover;
+  transition: all 400ms;
+}
+
+.bodyDark {
+  min-height: 100vh;
+  background: linear-gradient(3deg, #1d1c1cca, #5f5f5cda);
+  color: #fff;
+  transition: all 400ms;
+}
+
+.bodyDark a {
+  color: #fff;
+}
+
+.bodyDark a:hover,
+.bodyDark a:focus {
+  color: #02b7ff;
+}
+
+.bodyDark input {
+  background-color: rgba(248, 247, 247, 0.705);
+}

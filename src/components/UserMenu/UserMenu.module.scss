@@ -3,8 +3,13 @@
   align-items: center;
 }
 
+.userBoxSwitch {
+  margin-right: 15px;
+}
+
 .userBox > p {
   margin: 0;
+  line-height: normal;
 }
 
 .userBox > button {

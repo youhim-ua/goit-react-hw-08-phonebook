@@ -3,6 +3,7 @@ import { Navbar, Nav } from 'react-bootstrap';
 import { NavLink, Link } from 'react-router-dom';
 import authSelectors from '../../redux/auth/auth-selectors';
 import UserMenu from '../UserMenu';
+import SwitcherButton from '../SwitcherButton';
 import styles from './Navigation.module.scss';
 import logo from '../../image/phone-book.png';
 
@@ -12,6 +13,7 @@ const Navigation = () => {
   return (
     <>
       <Navbar expand="lg" className={styles.navbar}>
+        <SwitcherButton />
         <Link to="/" className={styles.navbarLogo}>
           <img src={logo} alt="phonebook logo" />
         </Link>

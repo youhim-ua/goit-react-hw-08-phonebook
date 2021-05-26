@@ -18,6 +18,7 @@ import storage from 'redux-persist/lib/storage';
 // import { composeWithDevTools } from 'redux-devtools-extension';
 import abonents from './phonebook/phonebook-reducers';
 import registration from './auth/auth-reducers';
+import theme from './theme/theme-reducers';
 
 const persistConfig = {
   key: 'auth',
@@ -30,6 +31,7 @@ const persistedReducer = persistReducer(persistConfig, registration);
 const rootReducer = combineReducers({
   abonents,
   persistedReducer,
+  theme,
 });
 
 // const store = createStore(rootReducer, composeWithDevTools());

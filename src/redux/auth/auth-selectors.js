@@ -1,5 +1,3 @@
-// import { createSelector } from 'reselect';
-
 const getUserName = state => state.persistedReducer.user.name;
 
 const getIsAuthorized = state => state.persistedReducer.isAuthorized;

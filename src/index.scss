@@ -18,6 +18,10 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+.dark-body {
+  background-color: #000;
+}
+
 button {
   font-family: 'Oxygen', sans-serif;
 }
@@ -43,11 +47,11 @@ code {
 }
 
 [data-pnotify].noteErrorInRange-elem {
-  background-color: rgba(255, 19, 19, 0.808);
+  background-color: rgb(255, 19, 19);
 }
 
 [data-pnotify].noteDeleteSuccess-elem {
-  background-color: rgba(238, 156, 25, 0.863);
+  background-color: rgb(238, 156, 25);
 }
 
 [data-pnotify].pnotify.pnotify-with-icon .custom-content {
