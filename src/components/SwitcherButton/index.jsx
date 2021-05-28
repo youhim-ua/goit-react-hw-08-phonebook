@@ -9,6 +9,9 @@ const SwitcherButton = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    if (!localStorage.getItem('NightTheme')) {
+      localStorage.setItem('NightTheme', JSON.stringify({ value: false }));
+    }
     const { value } = JSON.parse(localStorage.getItem('NightTheme'));
     setCheck(value);
     dispatch(themeActions(value));
