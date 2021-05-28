@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import themeActions from '../../redux/theme/theme-actions';
 import styles from './SwitcherButton.module.scss';
@@ -8,9 +8,19 @@ const SwitcherButton = () => {
 
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    const { value } = JSON.parse(localStorage.getItem('NightTheme'));
+    setCheck(value);
+    dispatch(themeActions(value));
+  }, [dispatch]);
+
   const handleSwitchButton = e => {
     setCheck(e.target.checked);
     dispatch(themeActions(e.target.checked));
+    localStorage.setItem(
+      'NightTheme',
+      JSON.stringify({ value: e.target.checked }),
+    );
   };
 
   return (

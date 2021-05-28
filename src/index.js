@@ -6,13 +6,13 @@ import { store, persistor } from './redux/store';
 import { PersistGate } from 'redux-persist/integration/react';
 import './index.scss';
 import App from './components/App/App';
-import Spinner from './components/Spinner';
+// import Spinner from './components/Spinner';
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>
-        <PersistGate loading={<Spinner />} persistor={persistor}>
+        <PersistGate loading={null} persistor={persistor}>
           <App />
         </PersistGate>
       </Provider>
